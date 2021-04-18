@@ -1,5 +1,6 @@
 package rocks.zipcodewilmington;
 
+import org.junit.Assert;
 import org.junit.Test;
 import rocks.zipcodewilmington.animals.Dog;
 import rocks.zipcodewilmington.animals.animal_creation.AnimalFactory;
@@ -17,10 +18,49 @@ public class DogHouseTest {
     // TODO - Create tests for `Dog getDogById(Integer id)`
     // TODO - Create tests for `Integer getNumberOfDogs()`
 
+
+    @Test
+    public void testAdd() {
+        String name = "Buster";
+        Date birthDate = new Date();
+        Dog animal = AnimalFactory.createDog(name, birthDate);
+        DogHouse.clear();
+        DogHouse.add(animal);
+        Assert.assertEquals(new Integer(1), DogHouse.getNumberOfDogs());
+    }
+
+    @Test
+    public void testRemove() {
+        String name = "Buster";
+        Date birthDate = new Date();
+        Dog animal = AnimalFactory.createDog(name, birthDate);
+        DogHouse.add(animal);
+        DogHouse.remove(animal);
+        Assert.assertNull(DogHouse.getDogById(24));
+    }
+
+    @Test
+    public void testRemoveInt() {
+        String name = "Buster";
+        Date birthDate = new Date();
+        Dog animal = AnimalFactory.createDog(name, birthDate);
+        DogHouse.add(animal);
+        DogHouse.remove(24);
+        Assert.assertNull(DogHouse.getDogById(24));
+    }
+    @Test
+    public void testGetDogById() {
+        Dog cat1 = new Dog("Buster", new Date(), 24);
+        DogHouse.add(cat1);
+        Dog expected = cat1;
+        Dog actual = DogHouse.getDogById(24);
+        Assert.assertEquals(expected, actual);
+    }
+
     @Test
     public void testGetNumberOfDogs() {
         // Given (some
-        String name = "Milo";
+        String name = "Buster";
         Date birthDate = new Date();
         Dog animal = AnimalFactory.createDog(name, birthDate);
         DogHouse.clear();
